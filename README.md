@@ -14,10 +14,13 @@ After finetuning it for 10 epochs ([notebook](https://github.com/eugeneyan/visua
 
 Now, let's start from scratch and pre-finetune in on another dataset, the [Unified Summarization Benchmark (USB)](https://arxiv.org/abs/2305.14296). While the FIB is based on _news articles_, and USB is based on _Wikipedia_, let's try it and see what happens.
 
-We finetune for 10 epochs on USB, followed by 10 epochs on FIB ([notebook](https://github.com/eugeneyan/visualizing-finetunes/blob/main/3_ft_usb_then_fib.ipynb)). When we run evals on FIB, we see that the model now achieves ROC AUC and PR AUC of 0.84 - 0.85, and the probability distribution is well separated. 
+We finetune for 10 epochs on USB, followed by 10 epochs on FIB ([notebook](https://github.com/eugeneyan/visualizing-finetunes/blob/main/3_ft_usb_then_fib.ipynb)). When we run evals on FIB, we see that the model now achieves ROC AUC and PR AUC of 0.84 - 0.85, and the probability distribution is well separated. At the same threshold of 0.8, we’ve increased recall from 0.02 to 0.50 (25x) and precision from 0.67 to 0.91 (+35%).
 
 ![](https://eugeneyan.com/assets/post-ft-on-usb+fib.jpg)
 
-**Takeaway**: Pre-finetuning on Wikipedia summaries improved factual inconsistency classification in news summaries, even though the former is out-of-domain.
+**Takeaway**: Pre-finetuning on _Wikipedia_ summaries improved hallucination detection in _news_ summaries, even though the former is out-of-domain.
 
 In other words, we bootstrapped on Wikipedia summaries to identify factually inconsistent news summaries. Thus, we may not need to collect as much finetuning data for our tasks if there are open-source, permissive-use datasets that are somewhat related.
+
+See more details on the NLI model, how we update it for hallucination detection, and examples of the FIB and USB data in [this write-up](https://eugeneyan.com/writing/finetuning/).
+
